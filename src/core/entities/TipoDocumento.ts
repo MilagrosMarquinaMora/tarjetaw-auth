@@ -2,7 +2,7 @@ import { BeforeInsert, BeforeUpdate, Column, Entity, PrimaryGeneratedColumn } fr
 
 @Entity('tipo_documento')
 export class TipoDocumento {
-    
+
     @PrimaryGeneratedColumn()
     id: number;
 

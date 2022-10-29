@@ -1,6 +1,7 @@
 import { Body, Headers, Controller, Get, Post, Put } from '@nestjs/common';
 import { documentTypeMock, userTokenMock } from '../mocks/auth.mock';
 import { AuthService } from '../core/services/auth.service';
+import { LoginUserDto } from '../core/dto/login-user.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -14,18 +15,19 @@ export class AuthController {
     }
 
     @Post('login')
-    login(@Body() body) {
-        const { nroDocument, password, documentType } = body;
-        if (nroDocument == '74916852' && password == 'megaLogin' && documentType == 1) {
-            return {
-                message: 'Se logueó correctamente',
-                token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c'
-            }
-        }
-        return {
-            message: 'error',
-            error: 'Usuario o contraseña incorrectos'
-        }
+    login(@Body() loginUserDto: LoginUserDto) {
+        return this.authService.login(loginUserDto);
+        // const { nroDocument, password, documentType } = body;
+        // if (nroDocument == '74916852' && password == 'megaLogin' && documentType == 1) {
+        //     return {
+        //         message: 'Se logueó correctamente',
+        //         token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c'
+        //     }
+        // }
+        // return {
+        //     message: 'error',
+        //     error: 'Usuario o contraseña incorrectos'
+        // }
     }
 
     @Get('validate-token')

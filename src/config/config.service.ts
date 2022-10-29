@@ -31,7 +31,7 @@ class ConfigService {
 
     public getTypeOrmConfig(): TypeOrmModuleOptions {
         return {
-            type: 'postgres',
+            type: 'postgres' as 'postgres',
 
             host: this.getValue('POSTGRES_HOST'),
             port: parseInt(this.getValue('POSTGRES_PORT')),
