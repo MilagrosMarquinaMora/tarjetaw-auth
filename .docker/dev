@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if [ -d "/opt/mediabyte/app/" ]; then
+  if [ ! -L "/opt/mediabyte/app/node_modules" ]; then
+    ln -sn /opt/mediabyte/.node_modules /opt/mediabyte/app/node_modules
+  fi
+  if [ ! -L "/opt/mediabyte/app/yarn.lock" ]; then
+    ln -sn /opt/mediabyte/yarn.lock /opt/mediabyte/app/yarn.lock
+  fi
+fi
+
+_usage() {
+  echo "running the server"
+  echo "    up        start the server in development mode"
+  echo ""
+  echo "testing code"
+  echo "    test      run tests, accepts test names as arguments"
+  echo ""
+  echo "installing Node packages"
+  echo "    yarnn      without argument: installs packages defined in package.json"
+  echo "              with argument:    installs given package"
+  echo ""
+  exit 1
+}
+
+# show usage if no argument is given
+arg=${1:-}
+shift || _usage
+
+case ${arg} in
+up|run|server|runserver)
+ yarn run start:dev
+;;
+test)
+ yarn run test
+;;
+yarnn)
+  if [ $# -gt 0 ]; then
+    yarn "$@"
+  else
+    yarn install
+  fi
+;;
+*)
+  _usage
+;;
+esac
