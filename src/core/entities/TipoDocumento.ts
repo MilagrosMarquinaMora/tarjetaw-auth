@@ -31,4 +31,5 @@ export class TipoDocumento {
     beforeUpdate() {
         this.updatedAt = new Date();
     }
+    
 }
